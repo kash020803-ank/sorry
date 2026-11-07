@@ -1,0 +1,671 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset=utf8>
+  <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <style>
+    :root {
+      color-scheme: light;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font: 14px -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #000
+    }
+
+    img {
+      max-width: 100%
+    }
+
+    [hidden]:not([hidden=until-found i]) {
+      display: none !important
+    }
+  </style>
+</head>
+
+<body>
+  <title>I'm Sorry</title>
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fredoka:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* Layout: one soft pastel column of rounded cards. Floating emoji drift behind it, and the voice message card is the centerpiece. */
+    /* This page commits to a single light look, so it sets every color itself and ignores the viewer's dark mode. */
+    :root {
+      --bg: #FFF1F6;
+      --bg-2: #F3EBFF;
+      --surface: #FFFFFF;
+      --fg: #3A2440;
+      --muted: #6F5A79;
+      --line: #F7D6E4;
+      --accent: #D8397A;
+      --accent-2: #8F6AE0;
+      --accent-ink: #FFFFFF;
+      --glow: rgba(216, 57, 122, 0.28);
+      --shadow: 0 12px 32px rgba(216, 57, 122, 0.12);
+      --font-display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+      --font-body: "Quicksand", "Trebuchet MS", system-ui, -apple-system, sans-serif;
+      --font-hand: "Caveat", "Segoe Script", cursive;
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: linear-gradient(170deg, var(--bg) 0%, var(--bg-2) 100%);
+      background-attachment: fixed;
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      padding-block: 3rem 4rem;
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 40rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    section {
+      min-width: 0;
+    }
+
+    /* Floating emoji */
+    .floaters {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .floaters span {
+      position: absolute;
+      bottom: -2rem;
+      font-size: 1.5rem;
+      opacity: 0.6;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      to {
+        transform: translateY(-115vh) rotate(25deg);
+      }
+    }
+
+    .hero {
+      text-align: center;
+      padding: 1.5rem 0 0.5rem;
+    }
+
+    .pill {
+      display: inline-block;
+      background: var(--surface);
+      border: 2px solid var(--line);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      margin: 0 0 1.25rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(3.4rem, 16vw, 6.5rem);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin: 0 0 0.5rem;
+      color: var(--accent);
+      text-wrap: balance;
+    }
+
+    @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+      h1 {
+        background-image: linear-gradient(100deg, var(--accent), var(--accent-2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+    }
+
+    .hero-emoji {
+      font-size: 2rem;
+      margin: 0 0 1.25rem;
+      letter-spacing: 0.4rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.5rem, 5vw, 1.9rem);
+      line-height: 1.25;
+      margin: 0 0 1rem;
+      text-wrap: balance;
+    }
+
+    p {
+      margin: 0 0 1rem;
+      max-width: 62ch;
+    }
+
+    .lead {
+      font-size: 1.2rem;
+      line-height: 1.65;
+      margin: 0 auto 1.75rem;
+      max-width: 34rem;
+    }
+
+    .rise {
+      animation: rise 0.9s cubic-bezier(.2, .7, .2, 1) both;
+    }
+
+    @keyframes rise {
+      from {
+        transform: translateY(14px);
+      }
+
+      to {
+        transform: none;
+      }
+    }
+
+    .btn {
+      font: inherit;
+      font-weight: 700;
+      padding: 0.85rem 1.6rem;
+      border-radius: 999px;
+      border: 2px solid var(--accent);
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    .btn.ghost {
+      background: var(--surface);
+      color: var(--accent);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 2px solid var(--line);
+      border-radius: 28px;
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+    }
+
+    .card> :last-child {
+      margin-bottom: 0;
+    }
+
+    /* Voice message */
+    .voice {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      scroll-margin-top: 1.5rem;
+    }
+
+    .voice-head {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+    }
+
+    .play {
+      position: relative;
+      flex: none;
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: 50%;
+      border: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: var(--accent-ink);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: transform .15s ease;
+    }
+
+    .play:hover {
+      transform: scale(1.06);
+    }
+
+    .play:active {
+      transform: scale(.96);
+    }
+
+    .play svg {
+      width: 1.7rem;
+      height: 1.7rem;
+      fill: currentColor;
+    }
+
+    .play::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .voice.playing .play::after {
+      animation: pulse 1.8s ease-out infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 var(--glow);
+      }
+
+      100% {
+        box-shadow: 0 0 0 1.4rem rgba(216, 57, 122, 0);
+      }
+    }
+
+    .voice-title {
+      margin: 0;
+      min-width: 0;
+    }
+
+    .voice-title strong {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.3rem;
+      line-height: 1.25;
+    }
+
+    .voice-title span {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .wave {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 4rem;
+      cursor: pointer;
+      touch-action: none;
+      user-select: none;
+      border-radius: 8px;
+    }
+
+    .wave span {
+      flex: 1;
+      min-width: 2px;
+      border-radius: 3px;
+      background: var(--line);
+      transition: background-color .15s ease;
+    }
+
+    .wave span.on {
+      background: var(--accent);
+    }
+
+    .times {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .voice-note {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .voice.empty .wave {
+      cursor: default;
+      opacity: .6;
+    }
+
+    /* Letter */
+    .letter p {
+      font-size: 1.08rem;
+    }
+
+    .promises {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+      gap: 1rem;
+    }
+
+    .promise {
+      background: var(--surface);
+      border: 2px solid var(--line);
+      border-radius: 24px;
+      padding: 1.25rem;
+      min-width: 0;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .promise .ico {
+      display: block;
+      font-size: 2rem;
+      line-height: 1;
+      margin: 0 0 0.6rem;
+    }
+
+    .promise h3 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.15rem;
+      margin: 0 0 0.35rem;
+      color: var(--accent);
+    }
+
+    .promise p {
+      margin: 0;
+      font-size: 0.97rem;
+      line-height: 1.55;
+    }
+
+    /* Closing */
+    .closing {
+      text-align: center;
+    }
+
+    .choices {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .reply {
+      min-height: 3.4rem;
+      margin: 0 auto;
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: var(--accent);
+    }
+
+    .sign {
+      font-family: var(--font-hand);
+      font-weight: 600;
+      font-size: 2.1rem;
+      margin: 1rem 0 0;
+      color: var(--fg);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--accent-2);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding-block: 2rem 3rem;
+        font-size: 1rem;
+      }
+
+      .card {
+        padding: 1.25rem;
+        border-radius: 24px;
+      }
+
+      .play {
+        width: 4rem;
+        height: 4rem;
+      }
+
+      .btn {
+        flex: 1 1 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .rise,
+      .voice.playing .play::after {
+        animation: none;
+      }
+
+      .floaters {
+        display: none;
+      }
+
+      .play,
+      .btn {
+        transition: none;
+      }
+    }
+  </style>
+
+  <div class="floaters" aria-hidden="true">
+    <span style="left:6%;animation-duration:19s;animation-delay:-3s">🙏🏻</span>
+    <span style="left:18%;animation-duration:24s;animation-delay:-11s">🙇🏻</span>
+    <span style="left:30%;animation-duration:21s;animation-delay:-7s">😢</span>
+    <span style="left:44%;animation-duration:27s;animation-delay:-16s">🌷</span>
+    <span style="left:57%;animation-duration:20s;animation-delay:-2s">🥺</span>
+    <span style="left:69%;animation-duration:25s;animation-delay:-13s">🌸</span>
+    <span style="left:80%;animation-duration:22s;animation-delay:-9s">✨</span>
+    <span style="left:91%;animation-duration:26s;animation-delay:-5s">💖</span>
+  </div>
+
+  <main>
+    <section class="hero rise">
+      <p class="pill">A message for you 💌</p>
+      <h1>I'm sorry</h1>
+      <p class="hero-emoji" aria-hidden="true">🥺💗🌸</p>
+      <p class="lead">I know I made a mistake, and I know I hurt you. But my intention was never to hurt you because
+        tumhe toh hamesha khush dekhna chahta hoon, lekin maine hi tumhe hurt kar diya.
+        Isiliye, yeh tumhare liye hai. Please accept it and mujhe maaf kar do. Please. 🥺</p>
+      <button class="btn primary" type="button" id="listen">Listen first 🎧</button>
+    </section>
+
+    <section class="card voice" id="voice-card" aria-labelledby="voice-heading">
+      <div class="voice-head">
+        <button class="play" id="play" type="button" aria-label="Play voice message">
+          <svg id="icon-play" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z" />
+          </svg>
+          <svg id="icon-pause" viewBox="0 0 24 24" aria-hidden="true" hidden>
+            <rect x="6" y="5" width="4.2" height="14" rx="1.2" />
+            <rect x="13.8" y="5" width="4.2" height="14" rx="1.2" />
+          </svg>
+        </button>
+        <p class="voice-title" id="voice-heading">
+          <strong>Maine khud nahi gaya download kiya hain 🎙️</strong>
+          <span>Maine like dekha tha tumhara ki agar tum ruth jao toh iss seh maan jaogi </span>
+        </p>
+      </div>
+      <div class="wave" id="wave" role="slider" tabindex="0" aria-label="Seek voice message" aria-valuemin="0"
+        aria-valuemax="100" aria-valuenow="0"></div>
+      <div class="times"><span id="cur">0:00</span><span id="dur">0:30</span></div>
+      <p class="voice-note" id="voice-note" hidden>The voice message is not here yet. It will play from this spot once
+        it is added.</p>
+      <audio id="voice" preload="metadata" src="voice.mp3"></audio>
+    </section>
+
+    <section class="card letter">
+      <h2>What I want you to know 💭</h2>
+      <p>Sabse pehle toh really sorry...lekin pata hain main bhi boht roya parso raat 😭 kyuki maine tumhe hurt kar diya
+        neend bhi nahi aa rahi thi subah 3:30 baje neend aayi </p>
+      <p>Lekin pata hain maine tumhare liye and bunny bhai ke liye gift bhi liya tha jab hum milte toh deta main, bunny
+        bhai ke liye toh pop pop and tumhare liye gloves liye the maine woolen ke voh touch screen vale...</p>
+      <p>Vaise toh main surprise dena chahta tha tumhe iss seh kyuki tumne bataya tha ki tum new clothes lene vali ho
+        toh new gloves bhi ache lagte maine aisea socha tha tumhare outfit ke sath match karte hue... </p>
+    </section>
+
+    <section class="card closing">
+      <h2>Can you forgive me? 🥹</h2>
+      <p style="margin-inline:auto">You do not have to answer today. Whatever you choose but thank you for listening.</p>
+      <div class="choices">
+        <button class="btn primary" type="button" data-reply="yes">I forgive you 💖</button>
+        <button class="btn ghost" type="button" data-reply="time">I need more time 🌙</button>
+      </div>
+      <p class="reply" id="reply" role="status" aria-live="polite"></p>
+      <p class="sign">Mujhe yeh nahi pata ki yaha ke answer ko main kaise check karunga isiliye please tum joh bhi
+        answer karo ek baar screenshot bhej dena...please </p>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var audio = document.getElementById('voice');
+      var card = document.getElementById('voice-card');
+      var btn = document.getElementById('play');
+      var wave = document.getElementById('wave');
+      var cur = document.getElementById('cur');
+      var dur = document.getElementById('dur');
+      var note = document.getElementById('voice-note');
+      var iconPlay = document.getElementById('icon-play');
+      var iconPause = document.getElementById('icon-pause');
+      var N = 48, missing = false, dragging = false;
+
+      var bars = [];
+      for (var i = 0; i < N; i++) {
+        var s = document.createElement('span');
+        s.style.height = (22 + 70 * Math.abs(Math.sin(i * 0.62) * Math.cos(i * 0.23 + 1))) + '%';
+        wave.appendChild(s);
+        bars.push(s);
+      }
+
+      function fmt(t) {
+        t = Math.max(0, Math.floor(t || 0));
+        return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
+      }
+      function render() {
+        var d = audio.duration || 0;
+        var p = d ? audio.currentTime / d : 0;
+        var n = Math.round(p * N);
+        for (var i = 0; i < bars.length; i++) bars[i].classList.toggle('on', i < n);
+        cur.textContent = fmt(audio.currentTime);
+        wave.setAttribute('aria-valuenow', String(Math.round(p * 100)));
+      }
+      function setMissing() {
+        missing = true;
+        card.classList.add('empty');
+        note.hidden = false;
+        btn.setAttribute('aria-disabled', 'true');
+      }
+      function seekTo(e) {
+        var d = audio.duration || 0;
+        if (!d || missing) return;
+        var r = wave.getBoundingClientRect();
+        var ratio = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+        audio.currentTime = ratio * d;
+        render();
+      }
+
+      audio.addEventListener('loadedmetadata', function () {
+        if (isFinite(audio.duration)) dur.textContent = fmt(audio.duration);
+        render();
+      });
+      audio.addEventListener('timeupdate', render);
+      audio.addEventListener('play', function () {
+        card.classList.add('playing');
+        iconPlay.hidden = true; iconPause.hidden = false;
+        btn.setAttribute('aria-label', 'Pause voice message');
+      });
+      function stopped() {
+        card.classList.remove('playing');
+        iconPlay.hidden = false; iconPause.hidden = true;
+        btn.setAttribute('aria-label', 'Play voice message');
+      }
+      audio.addEventListener('pause', stopped);
+      audio.addEventListener('ended', function () { stopped(); audio.currentTime = 0; render(); });
+      audio.addEventListener('error', setMissing);
+      if (audio.error) setMissing();
+
+      btn.addEventListener('click', function () {
+        if (missing) { note.hidden = false; return; }
+        if (audio.paused) {
+          var p = audio.play();
+          if (p && p.catch) p.catch(function () { });
+        } else {
+          audio.pause();
+        }
+      });
+
+      wave.addEventListener('pointerdown', function (e) {
+        dragging = true;
+        try { wave.setPointerCapture(e.pointerId); } catch (err) { }
+        seekTo(e);
+      });
+      wave.addEventListener('pointermove', function (e) { if (dragging) seekTo(e); });
+      wave.addEventListener('pointerup', function () { dragging = false; });
+      wave.addEventListener('pointercancel', function () { dragging = false; });
+      wave.addEventListener('keydown', function (e) {
+        var d = audio.duration || 0;
+        if (!d || missing) return;
+        if (e.key === 'ArrowRight') { audio.currentTime = Math.min(d, audio.currentTime + 5); e.preventDefault(); }
+        else if (e.key === 'ArrowLeft') { audio.currentTime = Math.max(0, audio.currentTime - 5); e.preventDefault(); }
+        else if (e.key === 'Home') { audio.currentTime = 0; e.preventDefault(); }
+        else if (e.key === 'End') { audio.currentTime = d; e.preventDefault(); }
+        render();
+      });
+
+      document.getElementById('listen').addEventListener('click', function () {
+        var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        card.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'center' });
+      });
+
+      var replies = {
+        yes: "Thank you. That means more than I can say, and I will keep every promise. 💖",
+        time: "Of course. Take all the time you need. I will be here, and I am not going anywhere. 🌙"
+      };
+      var out = document.getElementById('reply');
+      var choices = document.querySelectorAll('[data-reply]');
+      for (var j = 0; j < choices.length; j++) {
+        choices[j].addEventListener('click', function () {
+          out.textContent = replies[this.getAttribute('data-reply')];
+        });
+      }
+    })();
+  </script>
+
+</body>
+
+</html>
